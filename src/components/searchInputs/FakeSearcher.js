@@ -1,30 +1,46 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Animated, Dimensions} from 'react-native';
 import React from 'react';
 import colors from '../../utils/styles/DarkTheme';
 import SearchIcon from '../../assets/icons/searchIcon.svg';
 
-const FakeSearcher = () => {
+const screenWidth = Dimensions.get('window').width;
+
+const FakeSearcher = ({scrollValue}) => {
   return (
-    <View style={styles.mainContainer}>
+    <Animated.View style={styles.mainContainer(scrollValue)}>
       <SearchIcon fill={colors.text}></SearchIcon>
       <Text style={styles.searcherText}>FakeSearcher</Text>
-    </View>
+    </Animated.View>
   );
 };
 
 export default FakeSearcher;
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    backgroundColor: colors.secondary,
-    padding: 7,
-    justifyContent: 'center',
-    gap: 7,
-    alignItems: 'center',
-    flexDirection: 'row',
-    marginHorizontal: 15,
-    marginBottom: 12,
-    borderRadius: 6,
+  mainContainer: scrollValue => {
+    return {
+      backgroundColor: colors.secondary,
+      padding: 7,
+      justifyContent: 'center',
+      gap: 7,
+      alignItems: 'center',
+      flexDirection: 'row',
+      marginLeft: scrollValue.interpolate({
+        inputRange: [0, 100],
+        outputRange: [15, 60],
+        extrapolate: 'clamp',
+      }),
+      marginBottom: 12,
+      borderRadius: 6,
+      height: 35,
+      position: 'absolute',
+      bottom: 0,
+      width: scrollValue.interpolate({
+        inputRange: [0, 100],
+        outputRange: [screenWidth - 30, screenWidth - 120],
+        extrapolate: 'clamp',
+      }),
+    };
   },
   searcherText: {
     color: colors.text,

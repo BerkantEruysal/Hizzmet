@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View, SafeAreaView} from 'react-native';
+import {StyleSheet, Text, View, SafeAreaView, Animated} from 'react-native';
 import React from 'react';
 import FullLogo from '../logo/FullLogo';
 import colors from '../../utils/styles/DarkTheme';
@@ -6,17 +6,19 @@ import MapButton from '../IconButtons/MapButton';
 import ExploreButton from '../IconButtons/ExploreButton';
 import FakeSearcher from '../searchInputs/FakeSearcher';
 
-const ServiceConsumerHomeHeader = () => {
+const ServiceConsumerHomeHeader = ({scrollValue}) => {
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.safeAreaContainer}>
-        <View style={styles.topPartContainer}>
+        <Animated.View style={styles.topPartContainer(scrollValue)}>
           <MapButton></MapButton>
-          <FullLogo></FullLogo>
+          <Animated.View style={styles.fullLogoStyle(scrollValue)}>
+            <FullLogo></FullLogo>
+          </Animated.View>
           <ExploreButton></ExploreButton>
-        </View>
+        </Animated.View>
         <View style={styles.bottomPartContainer}>
-          <FakeSearcher></FakeSearcher>
+          <FakeSearcher scrollValue={scrollValue}></FakeSearcher>
         </View>
       </SafeAreaView>
     </View>
@@ -29,13 +31,28 @@ const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: colors.background,
   },
-  safeAreaContainer: {},
-  topPartContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-
-    padding: 20,
+  topPartContainer: scrollValue => {
+    return {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      padding: 10,
+      marginBottom: scrollValue.interpolate({
+        inputRange: [0, 100],
+        outputRange: [50, 5],
+        extrapolate: 'clamp',
+      }),
+    };
   },
   bottomPartContainer: {},
+  // ı want to create fullLogoStyle class that its opacity decreases when scrollValue increases
+  fullLogoStyle: scrollValue => {
+    return {
+      opacity: scrollValue.interpolate({
+        inputRange: [0, 100],
+        outputRange: [1, 0],
+        extrapolate: 'clamp',
+      }),
+    };
+  },
 });
