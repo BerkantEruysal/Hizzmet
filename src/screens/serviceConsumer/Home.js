@@ -26,12 +26,12 @@ const Home = () => {
     <View style={styles.mainContainer}>
       <ServiceConsumerHomeHeader
         scrollValue={scrollValue}></ServiceConsumerHomeHeader>
-      <Animated.ScrollView
+      <ScrollView
         style={styles.scrollView}
         onScroll={handleScroll}
         scrollEventThrottle={16}>
         {placeholder}
-      </Animated.ScrollView>
+      </ScrollView>
     </View>
   );
 };

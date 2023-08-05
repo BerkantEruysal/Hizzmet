@@ -8,7 +8,7 @@ const screenWidth = Dimensions.get('window').width;
 const FakeSearcher = ({scrollValue}) => {
   return (
     <Animated.View style={styles.mainContainer(scrollValue)}>
-      <SearchIcon fill={colors.text}></SearchIcon>
+      <SearchIcon color={colors.text} width={20}></SearchIcon>
       <Text style={styles.searcherText}>FakeSearcher</Text>
     </Animated.View>
   );
