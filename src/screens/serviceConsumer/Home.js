@@ -7,6 +7,7 @@ import ServicesWeChooseForYou from '../../components/service/ServicesWeChooseFor
 import ShareWithYourFriends from '../../components/ShareWithYourFriends';
 import HotProjects from '../../components/listing/HotProjects';
 import ViewedProviders from '../../components/listing/ViewedProviders';
+import LastPublishedWritings from '../../components/listing/LastPublishedWritings';
 
 const Home = () => {
   const scrollValue = useRef(new Animated.Value(0)).current;
@@ -32,6 +33,7 @@ const Home = () => {
         <ShareWithYourFriends style={{marginTop: 40}}></ShareWithYourFriends>
         <HotProjects style={{marginTop: 40}}></HotProjects>
         <ViewedProviders style={{marginTop: 40}}></ViewedProviders>
+        <LastPublishedWritings style={{marginTop: 40}}></LastPublishedWritings>
       </ScrollView>
     </View>
   );

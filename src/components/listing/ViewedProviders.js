@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
   scrollStyle: {
     paddingHorizontal: 14,
-    marginTop: 33,
+    marginTop: 21,
     gap: 28,
   },
 });
