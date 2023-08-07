@@ -16,7 +16,7 @@ const ServicesWeChooseForYou = ({style}) => {
         </Text>
       </View>
       <View style={styles.madeWithHizzmetWrapper}>
-        <Text style={styles.madeWithHizzmetText}>Hizzmet'de yapıldı</Text>
+        <Text style={styles.madeWithHizzmetText}>Hızzmet'de yapıldı</Text>
       </View>
     </View>
   );

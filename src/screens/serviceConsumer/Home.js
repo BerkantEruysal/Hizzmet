@@ -5,6 +5,8 @@ import ServiceConsumerHomeHeader from '../../components/headers/ServiceConsumerH
 import PopularServices from '../../components/listing/PopularServices';
 import ServicesWeChooseForYou from '../../components/service/ServicesWeChooseForYou';
 import ShareWithYourFriends from '../../components/ShareWithYourFriends';
+import HotProjects from '../../components/listing/HotProjects';
+import ViewedProviders from '../../components/listing/ViewedProviders';
 
 const Home = () => {
   const scrollValue = useRef(new Animated.Value(0)).current;
@@ -28,6 +30,8 @@ const Home = () => {
         <ServicesWeChooseForYou
           style={{marginTop: 40}}></ServicesWeChooseForYou>
         <ShareWithYourFriends style={{marginTop: 40}}></ShareWithYourFriends>
+        <HotProjects style={{marginTop: 40}}></HotProjects>
+        <ViewedProviders style={{marginTop: 40}}></ViewedProviders>
       </ScrollView>
     </View>
   );
