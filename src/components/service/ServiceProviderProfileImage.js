@@ -2,10 +2,10 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 import colors from '../../utils/styles/DarkTheme';
 
-const ServiceProviderProfileImage = ({size = 28}) => {
+const ServiceProviderProfileImage = ({size = 28, stroke}) => {
   return (
     <View style={styles.mainContainer(size)}>
-      <View style={styles.profileImageWrapper(size)}>
+      <View style={styles.profileImageWrapper(size, stroke)}>
         <Image></Image>
       </View>
       <View style={styles.profileState(size)}></View>
@@ -22,12 +22,14 @@ const styles = StyleSheet.create({
       width: size,
     };
   },
-  profileImageWrapper: size => {
+  profileImageWrapper: (size, stroke) => {
     return {
       height: size,
       width: size,
       borderRadius: size / 2,
       backgroundColor: colors.primary,
+      borderColor: colors.text,
+      borderWidth: stroke ? 1 : 0,
     };
   },
   profileState: size => {
