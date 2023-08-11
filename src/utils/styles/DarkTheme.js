@@ -7,6 +7,8 @@ const colors = {
   secondaryBackground: '#101317',
   successGreen: '#4CAF50',
   yellow: '#FFC107',
+  backgroundRgba: 'rgba(34, 40, 49, 1)',
+  lightGrey: '#D3D4D6',
 };
 
 export default colors;
