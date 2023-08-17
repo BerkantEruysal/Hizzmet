@@ -1,12 +1,13 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
-import StarIcon from '../../assets/icons/starIcon.svg';
 import colors from '../../utils/styles/DarkTheme';
 
-const RateInfoSummary = () => {
+const RateInfoSummary = ({width = 16, height = 16}) => {
   return (
     <View style={styles.mainContainer}>
-      <StarIcon></StarIcon>
+      <Image
+        style={{width, height}}
+        source={require('../../assets/icons/starIcon.png')}></Image>
       <Text style={styles.rateText}>4.8</Text>
       <Text style={styles.countText}>(21.6b)</Text>
     </View>

@@ -14,7 +14,7 @@ const ProviderProfileNameSection = () => {
       <View style={styles.nameTagWrapper}>
         <Text style={styles.providerName}>Kardeşler Boyacılık</Text>
         <Text style={styles.providerLevel}>2. seviye hizmet veren</Text>
-        <RateInfoSummary></RateInfoSummary>
+        <RateInfoSummary width={13} height={13}></RateInfoSummary>
       </View>
       <View style={styles.upArrowWrapper}>
         <UpArrowButton color={colors.text}></UpArrowButton>

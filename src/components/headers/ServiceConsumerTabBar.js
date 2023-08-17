@@ -32,6 +32,8 @@ export default ServiceConsumerTabBar;
 const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: colors.background,
+    borderTopWidth: 1,
+    borderTopColor: colors.secondaryBackground,
   },
   safeAreaContainer: {
     flexDirection: 'row',

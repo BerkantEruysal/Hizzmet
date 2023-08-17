@@ -17,6 +17,8 @@ import LocationInfo from '../../components/service/LocationInfo';
 import BadgeInfo from '../../components/service/BadgeInfo';
 import ServiceCategories from '../../components/service/ProfileServiceCategories';
 import FrequentlyAskedQuestions from '../../components/service/FrequentlyAskedQuestions';
+import ProviderPorftolioSliderContainer from '../../components/service/ProviderPorftolioSliderContainer';
+import Reviews from '../../components/service/Reviews';
 
 const ServiceProviderProfile = () => {
   const scrollValue = useRef(new Animated.Value(0)).current;
@@ -55,7 +57,10 @@ const ServiceProviderProfile = () => {
         <ServiceCategories
           containerStyle={{marginHorizontal: 14}}></ServiceCategories>
         <View style={styles.seperatorLine}></View>
-        <FrequentlyAskedQuestions></FrequentlyAskedQuestions>
+        <ProviderPorftolioSliderContainer></ProviderPorftolioSliderContainer>
+        <FrequentlyAskedQuestions
+          containerStyle={styles.fqaContainer}></FrequentlyAskedQuestions>
+        <Reviews containerStyle={styles.reviewsContainer}></Reviews>
       </ScrollView>
     </View>
   );
@@ -85,7 +90,11 @@ const styles = StyleSheet.create({
     marginLeft: 30,
     marginTop: 18,
   },
-  scrollStyle: {
-    paddingBottom: 24,
+  scrollStyle: {},
+  fqaContainer: {
+    marginTop: 12,
+  },
+  reviewsContainer: {
+    marginTop: 12,
   },
 });
