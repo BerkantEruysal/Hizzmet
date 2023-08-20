@@ -3,14 +3,19 @@ import React from 'react';
 import SearchIcon from '../../assets/icons/searchIcon.svg';
 import colors from '../../utils/styles/DarkTheme';
 
-const HomeButton = ({color}) => {
+const SearchButton = ({color, onPress}) => {
   return (
-    <Pressable onPress={() => {}}>
+    <Pressable style={styles.mainContainer} onPress={onPress}>
       <SearchIcon style={{color: color}}></SearchIcon>
     </Pressable>
   );
 };
 
-export default HomeButton;
+export default SearchButton;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainContainer: {
+    width: 60,
+    alignItems: 'center',
+  },
+});

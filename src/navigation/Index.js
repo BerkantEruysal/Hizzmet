@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ServiceConsumerMain from './ServiceConsumerMain';
 import {StatusBar, Platform} from 'react-native';
+import colors from '../utils/styles/DarkTheme';
 
 const Stack = createNativeStackNavigator();
 

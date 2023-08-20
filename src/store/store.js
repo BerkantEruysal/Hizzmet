@@ -1,5 +1,8 @@
-import { configureStore } from '@reduxjs/toolkit'
+import {configureStore} from '@reduxjs/toolkit';
+import AnimationSlice from './AnimationSlice';
 
 export const store = configureStore({
-  reducer: {},
-})
+  reducer: {
+    animation: AnimationSlice,
+  },
+});

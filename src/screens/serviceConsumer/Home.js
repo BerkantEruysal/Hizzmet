@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View, ScrollView, Animated} from 'react-native';
-import React, {useState, useRef} from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 import colors from '../../utils/styles/DarkTheme';
 import ServiceConsumerHomeHeader from '../../components/headers/ServiceConsumerHomeHeader';
 import PopularServices from '../../components/listing/PopularServices';
@@ -8,9 +8,19 @@ import ShareWithYourFriends from '../../components/ShareWithYourFriends';
 import HotProjects from '../../components/listing/HotProjects';
 import ViewedProviders from '../../components/listing/ViewedProviders';
 import LastPublishedWritings from '../../components/listing/LastPublishedWritings';
+import {setHomeScreenScrollValue} from '../../store/AnimationSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
-const Home = () => {
+const Home = props => {
   const scrollValue = useRef(new Animated.Value(0)).current;
+
+  const dispatch = useDispatch();
+  //I want to pass scrollValue to redux store when navigated to different screen
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('blur', () => {
+      dispatch(setHomeScreenScrollValue(scrollValue._value));
+    });
+  }, []);
 
   const handleScroll = Animated.event(
     [{nativeEvent: {contentOffset: {y: scrollValue}}}],

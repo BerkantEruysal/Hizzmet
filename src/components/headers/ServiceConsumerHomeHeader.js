@@ -1,5 +1,12 @@
-import {StyleSheet, Text, View, SafeAreaView, Animated} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  Text,
+  View,
+  SafeAreaView,
+  Animated,
+  Pressable,
+} from 'react-native';
+import React, {useRef} from 'react';
 import FullLogo from '../logo/FullLogo';
 import colors from '../../utils/styles/DarkTheme';
 import MapButton from '../IconButtons/MapButton';
@@ -7,6 +14,15 @@ import ExploreButton from '../IconButtons/ExploreButton';
 import FakeSearcher from '../searchInputs/FakeSearcher';
 
 const ServiceConsumerHomeHeader = ({scrollValue}) => {
+  const activateSearcherAnimation = useRef(new Animated.Value(0)).current;
+  const handleSearcherPress = () => {
+    //fade cancel text in
+    const fadeAnimation = Animated.timing(activateSearcherAnimation, {
+      toValue: 100,
+      duration: 200,
+      useNativeDriver: false,
+    });
+  };
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.safeAreaContainer}>
@@ -17,8 +33,10 @@ const ServiceConsumerHomeHeader = ({scrollValue}) => {
           </Animated.View>
           <ExploreButton></ExploreButton>
         </Animated.View>
-        <View style={styles.bottomPartContainer}>
-          <FakeSearcher scrollValue={scrollValue}></FakeSearcher>
+        <View style={styles.searcherWrapper}>
+          <Pressable onPress={handleSearcherPress}>
+            <FakeSearcher scrollValue={scrollValue}></FakeSearcher>
+          </Pressable>
         </View>
       </SafeAreaView>
     </View>
@@ -44,8 +62,7 @@ const styles = StyleSheet.create({
       }),
     };
   },
-  bottomPartContainer: {},
-  // ı want to create fullLogoStyle class that its opacity decreases when scrollValue increases
+
   fullLogoStyle: scrollValue => {
     return {
       opacity: scrollValue.interpolate({
@@ -54,5 +71,16 @@ const styles = StyleSheet.create({
         extrapolate: 'clamp',
       }),
     };
+  },
+  searcherWrapper: {
+    flexDirection: 'row',
+  },
+  cancelWrapper: animation => {
+    return {
+      opacity: 0,
+    };
+  },
+  cancelText: {
+    color: colors.text,
   },
 });

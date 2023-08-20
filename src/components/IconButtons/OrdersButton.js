@@ -3,9 +3,9 @@ import React from 'react';
 import OrdersIcon from '../../assets/icons/ordersIcon.svg';
 import colors from '../../utils/styles/DarkTheme';
 
-const HomeButton = ({color}) => {
+const HomeButton = ({color, onPress}) => {
   return (
-    <Pressable onPress={() => {}}>
+    <Pressable style={styles.mainContainer} onPress={onPress}>
       <OrdersIcon style={{color: color}}></OrdersIcon>
     </Pressable>
   );
@@ -13,4 +13,9 @@ const HomeButton = ({color}) => {
 
 export default HomeButton;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  mainContainer: {
+    width: 60,
+    alignItems: 'center',
+  },
+});
