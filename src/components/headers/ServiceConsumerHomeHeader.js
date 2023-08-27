@@ -13,16 +13,7 @@ import MapButton from '../IconButtons/MapButton';
 import ExploreButton from '../IconButtons/ExploreButton';
 import FakeSearcher from '../searchInputs/FakeSearcher';
 
-const ServiceConsumerHomeHeader = ({scrollValue}) => {
-  const activateSearcherAnimation = useRef(new Animated.Value(0)).current;
-  const handleSearcherPress = () => {
-    //fade cancel text in
-    const fadeAnimation = Animated.timing(activateSearcherAnimation, {
-      toValue: 100,
-      duration: 200,
-      useNativeDriver: false,
-    });
-  };
+const ServiceConsumerHomeHeader = ({scrollValue, handleSearcherPress}) => {
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.safeAreaContainer}>
