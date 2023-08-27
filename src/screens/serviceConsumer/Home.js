@@ -14,14 +14,6 @@ import {useDispatch, useSelector} from 'react-redux';
 const Home = props => {
   const scrollValue = useRef(new Animated.Value(0)).current;
 
-  const dispatch = useDispatch();
-  //I want to pass scrollValue to redux store when navigated to different screen
-  useEffect(() => {
-    const unsubscribe = props.navigation.addListener('blur', () => {
-      dispatch(setHomeScreenScrollValue(scrollValue._value));
-    });
-  }, []);
-
   const handleScroll = Animated.event(
     [{nativeEvent: {contentOffset: {y: scrollValue}}}],
     {
@@ -29,9 +21,18 @@ const Home = props => {
     },
   );
 
+  const handleSearcherPress = () => {
+    console.log('scroll value is ', scrollValue._value, 'on home screen');
+    props.navigation.navigate('ServiceConsumerExplore', {
+      screen: 'Search',
+      params: {scrollValue: scrollValue._value},
+    });
+  };
+
   return (
     <View style={styles.mainContainer}>
       <ServiceConsumerHomeHeader
+        handleSearcherPress={handleSearcherPress}
         scrollValue={scrollValue}></ServiceConsumerHomeHeader>
       <ScrollView
         contentContainerStyle={styles.scrollView}

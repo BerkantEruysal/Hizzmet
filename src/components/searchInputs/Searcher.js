@@ -5,6 +5,7 @@ import {
   Animated,
   Dimensions,
   TextInput,
+  Pressable,
 } from 'react-native';
 import React from 'react';
 import colors from '../../utils/styles/DarkTheme';
@@ -16,7 +17,11 @@ const Searcher = props => {
   return (
     <Animated.View style={[styles.mainContainer, props.style]}>
       <SearchIcon color={colors.text} width={20}></SearchIcon>
-      <TextInput autoFocus onFocus={props.onFocus} style={styles.searcherText}>
+      <TextInput
+        ref={props.searchInputRef}
+        autoFocus
+        onFocus={props.onFocus}
+        style={styles.searcherText}>
         FakeSearcher
       </TextInput>
     </Animated.View>

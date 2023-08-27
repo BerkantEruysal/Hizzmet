@@ -5,4 +5,8 @@ export const store = configureStore({
   reducer: {
     animation: AnimationSlice,
   },
+  configureStore: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
