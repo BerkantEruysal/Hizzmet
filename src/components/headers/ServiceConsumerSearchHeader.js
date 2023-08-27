@@ -23,14 +23,16 @@ const screenWidth = Dimensions.get('window').width;
 const ServiceConsumerSearchHeader = props => {
   const focusAnim = useRef(new Animated.Value(0)).current;
   const [isFocused, setIsFocused] = React.useState(false);
-
-  const homeScreenScrollValue = useSelector(
-    state => state.animation.homeScreenScrollValue,
-  );
-
+  const searchInputRef = useRef(null);
   const handleInputFocus = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
     setIsFocused(true);
+    Animated.timing(focusAnim, {
+      toValue: 1,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+    console.log('asd');
   };
 
   useEffect(() => {
@@ -42,35 +44,82 @@ const ServiceConsumerSearchHeader = props => {
 
   useFocusEffect(
     React.useCallback(() => {
-      Animated.timing(focusAnim, {
-        toValue: 1,
-        duration: 300,
-        useNativeDriver: false,
-      }).start();
-    }, [focusAnim]),
+      return () => {
+        setIsFocused(false);
+        focusAnim.setValue(0);
+        searchInputRef.current.focus();
+      };
+    }, []),
   );
+
+  const handleSearcherFocus = () => {
+    if (isFocused) return;
+    focusAnim.setValue(0);
+    searchInputRef.current.focus();
+  };
+
+  const blurSearcherFocus = () => {
+    searchInputRef.current.blur();
+    setIsFocused(false);
+    Animated.timing(focusAnim, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: false,
+    }).start();
+  };
 
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.safeAreaContainer}>
-        <Animated.View
-          style={styles.topPartContainer({
-            focusAnim,
-            homeScreenScrollValue,
-          })}>
-          <MapButton></MapButton>
-          <Animated.View style={styles.fullLogoStyle}>
-            <FullLogo></FullLogo>
-          </Animated.View>
-          <ExploreButton></ExploreButton>
-        </Animated.View>
         <View style={styles.searcherWrapper}>
-          <Searcher
-            onFocus={handleInputFocus}
-            style={styles.searcherStyle(focusAnim, isFocused)}></Searcher>
-          <TouchableOpacity style={styles.cancelTextWrapper}>
+          <Pressable style={{width: '85%'}} onPress={handleSearcherFocus}>
+            <Searcher
+              searchInputRef={searchInputRef}
+              style={styles.searcherStyle({focusAnim, isFocused})}
+              onFocus={handleInputFocus}></Searcher>
+          </Pressable>
+
+          <TouchableOpacity
+            onPress={blurSearcherFocus}
+            style={styles.cancelTextWrapper}>
             <Text style={styles.cancelText}>İptal et</Text>
           </TouchableOpacity>
+        </View>
+        <View style={styles.bottomPartContainer}>
+          <Pressable
+            style={{width: '50%'}}
+            onPress={() => {
+              props.changeListCategory(0);
+            }}>
+            <View
+              style={styles.selectedCategoryTextWrapper(
+                props.activeCategoryIndex == 0,
+              )}>
+              <Text
+                style={styles.searchCategoryText(
+                  props.activeCategoryIndex == 0,
+                )}>
+                Kategoriler
+              </Text>
+            </View>
+          </Pressable>
+          <Pressable
+            style={{width: '50%'}}
+            onPress={() => {
+              props.changeListCategory(1);
+            }}>
+            <View
+              style={styles.selectedCategoryTextWrapper(
+                props.activeCategoryIndex == 1,
+              )}>
+              <Text
+                style={styles.searchCategoryText(
+                  props.activeCategoryIndex == 1,
+                )}>
+                Hizmet Sağlayıcılar
+              </Text>
+            </View>
+          </Pressable>
         </View>
       </SafeAreaView>
     </View>
@@ -84,46 +133,23 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background,
   },
 
-  topPartContainer: ({focusAnim, homeScreenScrollValue}) => ({
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    padding: 10,
-    marginBottom: focusAnim.interpolate({
-      inputRange: [0, 1],
-      outputRange: [
-        homeScreenScrollValue < 100
-          ? 50 - (homeScreenScrollValue * 45) / 100
-          : 5,
-        10,
-      ],
-    }),
-    opacity: focusAnim.interpolate({
-      inputRange: [0, 1],
-      outputRange: [1, 0],
-    }),
-  }),
-
   searcherWrapper: {
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 15,
+    gap: 15,
   },
   cancelText: {
     color: colors.text,
   },
-  cancelTextWrapper: {
-    top: -37,
-    right: 13,
-    position: 'absolute',
-  },
-  searcherStyle: (focusAnim, isFocused, scrollValue) => ({
+  cancelTextWrapper: {},
+  searcherStyle: ({focusAnim, isFocused}) => ({
     backgroundColor: focusAnim.interpolate({
       inputRange: [0, 1],
       outputRange: [colors.secondary, colors.secondaryBackground],
     }),
-    borderWidth: focusAnim.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 1],
-    }),
+    borderWidth: 1,
     borderColor: focusAnim.interpolate({
       inputRange: [0, 1],
       outputRange: [colors.secondary, colors.text],
@@ -132,19 +158,26 @@ const styles = StyleSheet.create({
       inputRange: [0, 1],
       outputRange: ['0%', '100%'],
     }),
-    marginLeft: focusAnim.interpolate({
-      inputRange: [0, 1],
-      outputRange: [15, 10],
-      extrapolate: 'clamp',
-    }),
-    marginBottom: 12,
-    position: 'absolute',
+
     bottom: 0,
-    width: focusAnim.interpolate({
-      inputRange: [0, 1],
-      outputRange: [screenWidth - 30, screenWidth - 80],
-      extrapolate: 'clamp',
-    }),
+    width: '100%',
     justifyContent: isFocused ? 'flex-start' : 'center',
+  }),
+  bottomPartContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingTop: 10,
+  },
+  searchCategoryText: isActive => ({
+    color: isActive ? colors.primary : colors.text,
+    fontWeight: '600',
+  }),
+  selectedCategoryTextWrapper: isActive => ({
+    borderBottomWidth: 2,
+    borderBottomColor: isActive ? colors.primary : 'transparent',
+    paddingBottom: 5,
+    width: '100%',
+    alignItems: 'center',
+    paddingTop: 10,
   }),
 });

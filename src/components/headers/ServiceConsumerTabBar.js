@@ -11,22 +11,36 @@ import ProfileButton from '../IconButtons/ProfileButton';
 const ServiceConsumerTabBar = props => {
   const activeState = props.navigation.getState().index;
   const navigation = props.navigation;
-  const handlePress = (route, index) => {
-    navigation.navigate(route);
+  const handlePress = (route, index, param, fallbackParam) => {
+    if (activeState == index) {
+      console.log('Already on the page', fallbackParam);
+      navigation.navigate(route, fallbackParam ? fallbackParam : param);
+      return;
+    }
+    navigation.navigate(route, param);
   };
   return (
     <View style={styles.mainContainer}>
       <SafeAreaView style={styles.safeAreaContainer}>
         <HomeButton
           onPress={() => handlePress('ServiceConsumerHome', 0)}
-          color={activeState == 1 ? colors.primary : colors.text}></HomeButton>
+          color={activeState == 0 ? colors.primary : colors.text}></HomeButton>
         <MessageButton
-          onPress={() => handlePress('ServiceConsumerMessages', 1)}
-          color={colors.text}></MessageButton>
+          onPress={() =>
+            handlePress(
+              'ServiceConsumerMessages',
+              1,
+              {},
+              {screen: 'ServiceConsumerMessageList'},
+            )
+          }
+          color={
+            activeState == 1 ? colors.primary : colors.text
+          }></MessageButton>
         <SearchButton
           onPress={() => handlePress('ServiceConsumerExplore', 2)}
           color={
-            activeState == 0 ? colors.primary : colors.text
+            activeState == 2 ? colors.primary : colors.text
           }></SearchButton>
         <OrdersButton
           onPress={() => handlePress('ServiceConsumerOrders', 3)}
