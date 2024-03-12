@@ -66,6 +66,7 @@ const SearchHistory = props => {
                 }></SearchHistoryItem>
               {index != mockCategoryHistory.length - 1 ? (
                 <View
+                  key={category.id + 'seperator'}
                   style={{
                     borderBottomColor: colors.secondaryBackground,
                     borderBottomWidth: 1,
@@ -88,6 +89,7 @@ const SearchHistory = props => {
                 }></SearchHistoryItem>
               {index != mockCategoryHistory.length - 1 ? (
                 <View
+                  key={serviceProvider.id + 'seperator'}
                   style={{
                     borderBottomColor: colors.secondaryBackground,
                     borderBottomWidth: 1,
@@ -100,7 +102,6 @@ const SearchHistory = props => {
     }
   }, [props.activeCategoryIndex]);
 
-  console.log(searchHistoryElements);
   return (
     <View style={styles.mainContainer}>
       <View style={styles.header}>

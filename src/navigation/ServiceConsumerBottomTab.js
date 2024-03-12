@@ -5,7 +5,7 @@ import ServiceConsumerHomeHeader from '../components/headers/ServiceConsumerHome
 import ServiceConsumerTabBar from '../components/headers/ServiceConsumerTabBar';
 import ServiceConsumerExplore from './ServiceConsumerExplore';
 import {View, Text} from 'react-native';
-import ServiceConsumerMessageStack from './ServiceConsumerMessageStack';
+import ServiceConsumerMessageList from '../screens/serviceConsumer/MessageList';
 
 const Tab = createBottomTabNavigator();
 
@@ -20,8 +20,8 @@ const ServiceConsumerBottomTab = () => {
         }}
       />
       <Tab.Screen
-        name="ServiceConsumerMessages"
-        component={ServiceConsumerMessageStack}
+        name="ServiceConsumerMessageList"
+        component={ServiceConsumerMessageList}
         options={{
           headerShown: false,
         }}

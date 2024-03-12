@@ -10,10 +10,6 @@ const ServiceConsumerMessageStack = () => {
   return (
     <Stack.Navigator screenOptions={{headerShown: false}}>
       <Stack.Screen
-        name="ServiceConsumerMessageList"
-        component={ServiceConsumerMessages}
-      />
-      <Stack.Screen
         name="ServiceConsumerMessageDetail"
         component={MessageDetail}
       />

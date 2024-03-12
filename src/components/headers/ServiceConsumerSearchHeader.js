@@ -32,7 +32,6 @@ const ServiceConsumerSearchHeader = props => {
       duration: 200,
       useNativeDriver: false,
     }).start();
-    console.log('asd');
   };
 
   useEffect(() => {

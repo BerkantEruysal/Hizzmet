@@ -22,7 +22,6 @@ const Home = props => {
   );
 
   const handleSearcherPress = () => {
-    console.log('scroll value is ', scrollValue._value, 'on home screen');
     props.navigation.navigate('ServiceConsumerExplore', {
       screen: 'Search',
       params: {scrollValue: scrollValue._value},

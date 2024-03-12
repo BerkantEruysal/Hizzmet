@@ -6,7 +6,7 @@ import {useNavigation} from '@react-navigation/native';
 const MessageListItem = props => {
   const navigation = useNavigation();
   const handlePress = () => {
-    navigation.navigate('ServiceConsumerMessageDetail');
+    navigation.navigate('ServiceConsumerMessageStack');
   };
   return (
     <TouchableOpacity onPress={handlePress} style={styles.mainContainer}>

@@ -13,7 +13,6 @@ const ServiceConsumerTabBar = props => {
   const navigation = props.navigation;
   const handlePress = (route, index, param, fallbackParam) => {
     if (activeState == index) {
-      console.log('Already on the page', fallbackParam);
       navigation.navigate(route, fallbackParam ? fallbackParam : param);
       return;
     }
@@ -26,14 +25,7 @@ const ServiceConsumerTabBar = props => {
           onPress={() => handlePress('ServiceConsumerHome', 0)}
           color={activeState == 0 ? colors.primary : colors.text}></HomeButton>
         <MessageButton
-          onPress={() =>
-            handlePress(
-              'ServiceConsumerMessages',
-              1,
-              {},
-              {screen: 'ServiceConsumerMessageList'},
-            )
-          }
+          onPress={() => handlePress('ServiceConsumerMessageList', 1, {})}
           color={
             activeState == 1 ? colors.primary : colors.text
           }></MessageButton>
